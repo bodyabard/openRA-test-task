@@ -34,6 +34,9 @@ namespace OpenRA.Mods.Common.Traits
 		[Desc("Does this actor cancel its attack activity when it needs to resupply? Setting this to 'false' will make the actor resume attack after reloading.")]
 		public readonly bool AbortOnResupply = true;
 
+		[Desc("Does this actor cancel its attack activity when it moves? Setting this to 'false' will make the actor resume attack while moving.")]
+		public readonly bool AbortOnMovement = false;
+
 		public override object Create(ActorInitializer init) { return new AttackFollow(init.Self, this); }
 	}
 
@@ -45,6 +48,7 @@ namespace OpenRA.Mods.Common.Traits
 
 		Mobile mobile;
 		AutoTarget autoTarget;
+		IMove move;
 		bool requestedForceAttack;
 		Activity requestedTargetPresetForActivity;
 		bool opportunityForceAttack;
@@ -80,6 +84,7 @@ namespace OpenRA.Mods.Common.Traits
 		{
 			mobile = self.TraitOrDefault<Mobile>();
 			autoTarget = self.TraitOrDefault<AutoTarget>();
+			move = self.TraitOrDefault<IMove>();
 			base.Created(self);
 		}
 
@@ -152,8 +157,15 @@ namespace OpenRA.Mods.Common.Traits
 						IsAiming = CanAimAtTarget(self, OpportunityTarget, opportunityForceAttack);
 				}
 
+				if (move != null && IsAiming && Info.AbortOnMovement)
+				{
+					IsAiming = !move.IsMovementInProgress;
+				}
+
 				if (IsAiming)
+				{
 					DoAttack(self, OpportunityTarget);
+				}
 			}
 
 			base.Tick(self);
