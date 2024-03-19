@@ -1,60 +1,56 @@
-# Prerequisites
-*.d
+# Visual Studio
+Release
+bin
+obj
+*.ncb
+*.vcproj*
+*.suo
+*.user
+*.sln.cache
+*.manifest
+*.CodeAnalysisLog.xml
+*.lastcodeanalysissucceeded
+_ReSharper.*/
+/.vs
 
-# Object files
-*.o
-*.ko
-*.obj
-*.elf
+# Visual Studio Code
+/.vscode/settings.json
 
-# Linker output
-*.ilk
-*.map
-*.exp
+# binaries
+IP2LOCATION-LITE-DB1.IPV6.BIN.ZIP
 
-# Precompiled Headers
-*.gch
-*.pch
+# backup files by various editors
+*~
+*.orig
+\#*
+.*.sw?
 
-# Libraries
-*.lib
-*.a
-*.la
-*.lo
+# Monodevelop
+*.pidb
+*.userprefs
 
-# Shared objects (inc. Windows DLLs)
-*.dll
-*.so
-*.so.*
-*.dylib
+# Mac OS X
+.DS_Store
 
-# Executables
-*.exe
-*.out
-*.app
-*.i*86
-*.x86_64
-*.hex
+# auto-generated documentation
+DOCUMENTATION.md
+WEAPONS.md
+Lua-API.md
+Settings.md
+*.html
+openra.6
+update.log
 
-# Debug files
-*.dSYM/
-*.su
-*.idb
-*.pdb
+# SublimeText
+*.sublime-project
+*.sublime-workspace
 
-# Kernel Module Compile Results
-*.cmd
-.tmp_versions/
-modules.order
-Module.symvers
-Mkfile.old
-dkms.conf
+# NUnit
+/TestResult.xml
+/lib/
 
-# Visual Studio cache directory
-.vs/
+# Support directory
+/Support
 
-# General meta files
-*.editorconfig
-*.cache
-*.json
-*.props
+# IntelliJ files
+.idea
