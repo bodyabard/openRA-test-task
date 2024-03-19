@@ -122,6 +122,8 @@ namespace OpenRA.Mods.Common.Traits
 	[RequireExplicitImplementation]
 	public interface INotifyKilled { void Killed(Actor self, AttackInfo e); }
 	[RequireExplicitImplementation]
+	public interface INotifyHealedByMedivac { void Healed(Actor self, AttackInfo e); }
+	[RequireExplicitImplementation]
 	public interface INotifyAppliedDamage { void AppliedDamage(Actor self, Actor damaged, AttackInfo e); }
 
 	[RequireExplicitImplementation]
@@ -196,6 +198,8 @@ namespace OpenRA.Mods.Common.Traits
 
 	[RequireExplicitImplementation]
 	public interface INotifyEnteredCargo { void OnEnteredCargo(Actor self, Actor cargo); }
+	[RequireExplicitImplementation]
+	public interface INotifyEnteredMedivac { void OnEnteredCargo(Actor self, Actor cargo); }
 
 	[RequireExplicitImplementation]
 	public interface INotifyExitedCargo { void OnExitedCargo(Actor self, Actor cargo); }
@@ -538,6 +542,7 @@ namespace OpenRA.Mods.Common.Traits
 		CPos NearestMoveableCell(CPos target);
 		MovementType CurrentMovementTypes { get; set; }
 		bool CanEnterTargetNow(Actor self, in Target target);
+		bool IsMovementInProgress => CurrentMovementTypes != MovementType.None;
 	}
 
 	public interface IWrapMove

@@ -48,6 +48,9 @@ namespace OpenRA.Mods.Common.Traits
 		public int UnitsKilled;
 		public int UnitsDead;
 
+		public int HealedByMedivac;
+		public int CargoByMedivac;
+
 		public int BuildingsKilled;
 		public int BuildingsDead;
 
@@ -189,7 +192,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new UpdatesPlayerStatistics(this, init.Self); }
 	}
 
-	public class UpdatesPlayerStatistics : INotifyKilled, INotifyCreated, INotifyOwnerChanged, INotifyActorDisposing
+	public class UpdatesPlayerStatistics : INotifyKilled, INotifyCreated, INotifyOwnerChanged, INotifyActorDisposing, INotifyHealedByMedivac, INotifyEnteredMedivac
 	{
 		readonly UpdatesPlayerStatisticsInfo info;
 		readonly string actorName;
@@ -299,6 +302,22 @@ namespace OpenRA.Mods.Common.Traits
 				playerStats.AssetsValue -= cost;
 				includedInAssetsValue = false;
 			}
+		}
+
+		public void Healed(Actor self, AttackInfo e)
+		{
+			if (self.Owner.WinState != WinState.Undefined)
+				return;
+
+			playerStats.HealedByMedivac++;
+		}
+
+		public void OnEnteredCargo(Actor self, Actor cargo)
+		{
+			if (self.Owner.WinState != WinState.Undefined)
+				return;
+
+			playerStats.CargoByMedivac++;
 		}
 	}
 }
